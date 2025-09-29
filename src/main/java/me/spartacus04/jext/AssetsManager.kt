@@ -140,7 +140,8 @@ class AssetsManager {
                         inputStream.close()
 
                         true
-                    } catch (_ : Exception) {
+                    } catch (e: Exception) {
+                        Bukkit.getLogger().severe(e.toString())
                         false
                     }
                 }
@@ -155,8 +156,9 @@ class AssetsManager {
             )
 
             successFullDownload
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             Bukkit.getConsoleSender().sendMessage(RESOURCEPACK_DOWNLOAD_FAIL)
+            Bukkit.getLogger().severe(e.toString())
             false
         }
     }
