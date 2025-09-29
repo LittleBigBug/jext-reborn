@@ -202,6 +202,8 @@ class AssetsManager {
 
     private val resourcePack: String
         get() = try {
+            if (CONFIG.RESOURCE_PACK_URL.isNotBlank())
+                CONFIG.RESOURCE_PACK_URL
             Bukkit.getServer().resourcePack
         } catch (_: NoSuchMethodError) {
             val propertiesFile = File(".").resolve("server.properties")
@@ -211,6 +213,8 @@ class AssetsManager {
 
     internal val resourcePackHash: String
         get() = try {
+            if (CONFIG.RESOURCE_PACK_URL.isNotBlank())
+                CONFIG.RESOURCE_PACK_HASH
             Bukkit.getServer().resourcePackHash
         } catch (_: NoSuchMethodError) {
             val propertiesFile = File(".").resolve("server.properties")
