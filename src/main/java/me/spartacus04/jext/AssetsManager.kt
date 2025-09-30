@@ -64,6 +64,7 @@ class AssetsManager {
                 null
             }
         } else {
+            Bukkit.getLogger().warning("No resource pack specified or found. " + CONFIG.RESOURCE_PACK_URL + " " + CONFIG.RESOURCE_PACK_HASH + " " + resourcePack);
             null
         }
     }
@@ -202,9 +203,7 @@ class AssetsManager {
 
     private val resourcePack: String
         get() = try {
-            if (CONFIG.RESOURCE_PACK_URL.isNotBlank())
-                CONFIG.RESOURCE_PACK_URL
-            Bukkit.getServer().resourcePack
+            CONFIG.RESOURCE_PACK_URL.ifBlank { Bukkit.getServer().resourcePack }
         } catch (_: NoSuchMethodError) {
             val propertiesFile = File(".").resolve("server.properties")
 
@@ -215,7 +214,7 @@ class AssetsManager {
         get() = try {
             if (CONFIG.RESOURCE_PACK_URL.isNotBlank())
                 CONFIG.RESOURCE_PACK_HASH
-            Bukkit.getServer().resourcePackHash
+            else Bukkit.getServer().resourcePackHash
         } catch (_: NoSuchMethodError) {
             val propertiesFile = File(".").resolve("server.properties")
 
